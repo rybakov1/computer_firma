@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using app_computer.Models;  
 
 namespace app_computer
 {
@@ -23,6 +24,19 @@ namespace app_computer
         public Page1()
         {
             InitializeComponent();
+
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            using (mydbContext db = new mydbContext()) {
+                string item = textBox.Text;
+                var components = db.Components
+                    .Where(p => p.Model == item).ToList();   // асинхронное получение данных
+
+                foreach (var comp in components)
+                    Console.WriteLine($"{comp.Model} ({comp.Price}) - {comp.Description}");
+            }
         }
     }
 }
