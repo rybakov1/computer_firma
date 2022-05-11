@@ -323,23 +323,23 @@ namespace app_computer.Models
                     .HasMaxLength(255)
                     .HasColumnName("name");
 
-                entity.HasMany(d => d.IdComps)
-                    .WithMany(p => p.IdPresets)
+                entity.HasMany(d => d.Comps)
+                    .WithMany(p => p.Presets)
                     .UsingEntity<Dictionary<string, object>>(
-                        "PresestComponent",
-                        l => l.HasOne<Component>().WithMany().HasForeignKey("IdComp").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("id_comp"),
-                        r => r.HasOne<Preset>().WithMany().HasForeignKey("IdPreset").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("id_preset"),
+                        "PresetComp",
+                        l => l.HasOne<Component>().WithMany().HasForeignKey("CompId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("k_comp"),
+                        r => r.HasOne<Preset>().WithMany().HasForeignKey("PresetId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("k_pres"),
                         j =>
                         {
-                            j.HasKey("IdPreset", "IdComp").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                            j.HasKey("PresetId", "CompId").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
-                            j.ToTable("presest_components");
+                            j.ToTable("preset_comp");
 
-                            j.HasIndex(new[] { "IdComp" }, "id_comp_idx");
+                            j.HasIndex(new[] { "CompId" }, "k_comp_idx");
 
-                            j.IndexerProperty<int>("IdPreset").HasColumnName("id_preset");
+                            j.IndexerProperty<int>("PresetId").HasColumnName("preset_id");
 
-                            j.IndexerProperty<int>("IdComp").HasColumnName("id_comp");
+                            j.IndexerProperty<int>("CompId").HasColumnName("comp_id");
                         });
             });
 

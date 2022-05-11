@@ -5,24 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
-        Title="Components" Height="450" Width="800">
+        Title="Components" Height="552" Width="742">
     <Grid x:Name="grid1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle HorizontalAlignment="Center" Height="71" Stroke="#333" VerticalAlignment="Center" Width="800" Fill="#FFD9B7B7" Grid.ColumnSpan="3" >
-            <Rectangle.Effect>
-                <DropShadowEffect/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="441" Height="40"/>
-        <Button x:Name="button" Grid.Column="2" Content="->" HorizontalAlignment="Left" Margin="0,12,0,0" VerticalAlignment="Top" Height="40" Width="51" Click="button_Click"/>
-        <TextBlock x:Name="box" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="365" Width="622" Margin="0,69,0,0" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+        <StackPanel x:Name="stack_pc" Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Сборки ПК"/>
+        </StackPanel>
+
+        <StackPanel x:Name="stack_comp" Grid.Row="1" Grid.Column="0">
+            <TextBlock Text="Комплектующие ПК"/>
+        </StackPanel>
+
+        <TextBox x:Name="textBox" Grid.Column="1" Margin="0,15,0,2" TextWrapping="Wrap" Text="TextBox"/>
+        <Button x:Name="button" Grid.Column="2" Content="->" Margin="5,15,0,0" VerticalAlignment="Top" Height="37" Click="button_Click" HorizontalAlignment="Left" Width="41"/>
+        <TextBlock x:Name="box" TextWrapping="Wrap" Text="TextBlock" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Window>

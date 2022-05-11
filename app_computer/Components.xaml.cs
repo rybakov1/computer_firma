@@ -4,42 +4,67 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using app_computer.Models;
 using Microsoft.EntityFrameworkCore;
+using app_computer.Models;
 
 namespace app_computer
 {
     public partial class Components : Window
     {
+        mydbContext db;
+
         public Components()
         {
             InitializeComponent();
-            categoriesButtonsCreate();
+            CategoriesButtonsCreate();
+            db = new mydbContext();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
             string category = textBox.Text;
-            getComponentByCategory(category);
+            GetComponentByCategory(category);
         }
 
-        private void getComponentByCategory(string category)
+        private void GetComponentByCategory(string category)
         {
-            using (mydbContext db = new mydbContext())
-            {
-                var components = from u in db.Components
-                                 join c in db.Typeofcomponents on u.IdType equals c.IdType
-                                 where c.Title == category
-                                 select new { u.Model, u.Description, c.Title };
+            var components = from u in db.Components
+                             join c in db.Typeofcomponents on u.IdType equals c.IdType
+                             where c.Title == category
+                             select new { u.Model, u.Description, c.Title };
 
-                TextBlock[] tBlock = new TextBlock[4];
-                int i = 0;
-                box.Text = "";
-                foreach (var comp in components)
+            TextBlock[] tBlock = new TextBlock[4];
+            int i = 0;
+            box.Text = "";
+            foreach (var comp in components)
+            {
+                tBlock[i] = new TextBlock
+                {
+                    Text = $"{i + 1}. {comp.Model} ({comp.Title} руб.) - {comp.Description} \n",
+                    Name = String.Format("Textblock{0}", i)
+                };
+                box.Inlines.Add(tBlock[i]);
+                Grid.SetRow(tBlock[i], i);
+                i++;
+            }
+        }
+
+        private void GetPresetComponents(string category)
+        {
+            var presets = db.Presets.Include(c => c.Comps).Where(c => c.Name == category)
+                        .ToList();
+
+            TextBlock[] tBlock = new TextBlock[4];
+            int i = 0;
+            box.Text = "";
+
+            foreach (var preset in presets)
+            {
+                foreach (var components in preset.Comps)
                 {
                     tBlock[i] = new TextBlock
                     {
-                        Text = $"{i}. {comp.Model} ({comp.Title} руб.) - {comp.Description} \n",
+                        Text = $"{i + 1}. {components.Model} ({components.Price} руб.) - {components.Description} \n",
                         Name = String.Format("Textblock{0}", i)
                     };
                     box.Inlines.Add(tBlock[i]);
@@ -48,44 +73,75 @@ namespace app_computer
                 }
             }
         }
-        private void categoriesButtonsCreate()
+
+        private void CategoriesButtonsCreate()
         {
-            using (mydbContext db = new mydbContext())
+            var components = from u in db.Typeofcomponents
+                             select new { u.Title };
+
+            var presets = db.Presets.Include(c => c.Comps)
+                        .ToList();
+
+
+            List<string> list_comps = new List<string>();
+            List<string> list_presets = new List<string>();
+
+            foreach (var preset in presets)
             {
-                var categories = from u in db.Typeofcomponents
-                                 select new { u.Title };
-
-                int i = 0;
-                Button[] b = new Button[8];
-                foreach (var category in categories)
-                {
-                    b[i] = new Button
-                    {
-                        Name = $"button{i}",
-                        Content = $"{category.Title}",
-                        Height = 20,
-                    };
-                    Thickness thickness = b[i].Margin;
-                    thickness.Top = 40 * i;
-                    b[i].Margin = thickness;
-
-                    b[i].Click += button_click1;
-
-                    Grid.SetRow(b[i], 1);
-                    Grid.SetColumn(b[i], 0);
-                    grid1.Children.Add(b[i]);
-                    i++;
-                }
+                list_presets.Add(preset.Name);
             }
-            void button_click1(object sender, RoutedEventArgs e)
+
+            foreach (var category in components)
             {
-                var senderBtn = sender as Button;
+                list_comps.Add(category.Title);
+            }
+
+            ButtonGeneration(list_presets, stack_pc, handler: button_click2);
+            ButtonGeneration(list_comps, stack_comp, handler: button_click1);
+        }
+
+        private void ButtonGeneration(List<string> categories, StackPanel stackPanel, RoutedEventHandler handler)
+        {
+            int i = 0;
+            Button[] b = new Button[categories.Count];
+
+            foreach (var category in categories)
+            {
+                b[i] = new Button
+                {
+                    Name = $"button{i}",
+                    Content = $"{category}",
+                    Height = 20,
+                };
+                Thickness thickness = b[i].Margin;
+                thickness.Top = 5;
+                b[i].Margin = thickness;
+
+                b[i].Click += handler;
+
+                stackPanel.Children.Add(b[i]);
+                i++;
+            }
+        }
+
+        void button_click1(object sender, RoutedEventArgs e)
+        {
+            var senderBtn = sender as Button;
 #pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
 #pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
-                getComponentByCategory(senderBtn.Content.ToString());
+            GetComponentByCategory(senderBtn.Content.ToString());
 #pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
 #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
-            }
+        }
+
+        void button_click2(object sender, RoutedEventArgs e)
+        {
+            var senderBtn = sender as Button;
+#pragma warning disable CS8602 // Разыменование вероятной пустой ссылки.
+#pragma warning disable CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+            GetPresetComponents(senderBtn.Content.ToString());
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+#pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
         }
     }
 }

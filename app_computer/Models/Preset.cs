@@ -7,13 +7,13 @@ namespace app_computer.Models
     {
         public Preset()
         {
-            IdComps = new HashSet<Component>();
+            Comps = new HashSet<Component>();
         }
 
         public int IdPreset { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
 
-        public virtual ICollection<Component> IdComps { get; set; }
+        public virtual ICollection<Component> Comps { get; set; }
     }
 }

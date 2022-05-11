@@ -10,7 +10,7 @@ namespace app_computer.Models
             OrderComponents = new HashSet<OrderComponent>();
             StorageComps = new HashSet<StorageComp>();
             VendorComponents = new HashSet<VendorComponent>();
-            IdPresets = new HashSet<Preset>();
+            Presets = new HashSet<Preset>();
         }
 
         public int IdComp { get; set; }
@@ -32,6 +32,6 @@ namespace app_computer.Models
         public virtual ICollection<StorageComp> StorageComps { get; set; }
         public virtual ICollection<VendorComponent> VendorComponents { get; set; }
 
-        public virtual ICollection<Preset> IdPresets { get; set; }
+        public virtual ICollection<Preset> Presets { get; set; }
     }
 }
