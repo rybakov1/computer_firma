@@ -16,8 +16,9 @@ namespace app_computer
         public Components()
         {
             InitializeComponent();
-            CategoriesButtonsCreate();
             db = new mydbContext();
+
+            CategoriesButtonsCreate();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
