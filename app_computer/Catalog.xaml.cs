@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using app_computer.Models;
-using app_computer.papochka;
+using app_computer.Logic;
 using System.Collections.ObjectModel;
 
 namespace app_computer
