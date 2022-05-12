@@ -3,9 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
-        Title="OrderDetails" Height="450" Width="800">
+        Title="OrderDetails" Height="720" Width="1080">
+    
+    <Window.Resources>
+        <DataTemplate x:Key="listTemplate">
+            <StackPanel Margin="5" Width="545">
+                <!--<Image Width="100" Height="75" Source="{Binding Path=ImagePath}" />-->
+                <TextBlock FontSize="20" Text="{Binding Path=Model}" HorizontalAlignment="Left"/>
+                <TextBlock FontSize="14" Text="{Binding Path=Description}" HorizontalAlignment="Left"/>
+                <TextBlock FontSize="14" Text="{Binding Path=Specifications}" HorizontalAlignment="Left"/>
+                <TextBlock FontSize="16" Text="{Binding Path=Price}" HorizontalAlignment="Right"/>
+                <xctk:IntegerUpDown Tag="{Binding Path=Id}" x:Name="myUpDownControl" Text="{Binding Path=Count}" ValueChanged="myUpDownControl_ValueChanged" Minimum="0"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid x:Name="grid2">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -17,8 +32,11 @@
             <ColumnDefinition Width="2.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="back_button" Content="Вернуться к покупкам" Width="150" Height="20" HorizontalAlignment="Right" Click="back_button_Click" />
-            <TextBlock x:Name="mem" Margin="22,26,22,44" TextWrapping="Wrap" Grid.RowSpan="2" Grid.Column="1" Grid.Row="1"/>
-        <TextBlock x:Name="cart_label" Text="Корзина" FontSize="25" HorizontalAlignment="Right" Grid.Row="1" />
+        <TextBlock FontSize="20" x:Name="back_button" Text="Вернуться к покупкам" Height="40" HorizontalAlignment="Right" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+        <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" Grid.RowSpan="2"/>
+
+
+        <TextBlock x:Name="total_price" Text=""  Margin="10,16,10,125" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock x:Name="cart_label" Text="Корзина" FontSize="25" HorizontalAlignment="Right" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -7,5 +7,7 @@
         public decimal Price {get; set;}
         public string? Description { get; set;}
         public string? Specifications { get; set;}
+        public int? Count { get; set;}
+        public string? TotalPrice { get; set;}
     }
 }

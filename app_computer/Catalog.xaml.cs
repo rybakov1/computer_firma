@@ -14,9 +14,7 @@ namespace app_computer
     public partial class Catalog : Window
     {
         mydbContext db;
-        ObservableCollection<ComponentMem> ComponentList { get; set; }
-
-        List<int> Id = new List<int>();
+        ObservableCollection<ComponentMem> ComponentList;
 
         public Catalog()
         {
@@ -121,11 +119,6 @@ namespace app_computer
                 i++;
             }
         }
-
-        void AddItemInCart(List<int> Ids)
-        {
-            box.Text += Ids;
-        }
         private void button_click1(object sender, RoutedEventArgs e)
         {
             var senderBtn = sender as Button;
@@ -137,19 +130,26 @@ namespace app_computer
         {
             var senderBtn = sender as Button;
             GetPresetComponents(senderBtn.Content.ToString());
+#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
         }
         private void dataTemplateButton_Click(object sender, RoutedEventArgs e)
         {
             var senderBtn = sender as Button;
-            Id.Add((int)senderBtn.Tag);
-            AddItemInCart(Id);
-#pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
+            if (Config.Id.ContainsKey((int)senderBtn.Tag))
+            {
+                Config.Id[(int)senderBtn.Tag] += 1;
+            }
+            else
+            {
+                Config.Id.Add((int)senderBtn.Tag, 1);
+            }
+
         }
 
         private void cart_button_Click(object sender, RoutedEventArgs e)
         {
-            OrderDetails orderDetails = new OrderDetails(Id);
-            App.Current.MainWindow = orderDetails;
+            OrderDetails orderDetails = new OrderDetails();
+            Application.Current.MainWindow = orderDetails;
 
             this.Close();
             orderDetails.Show();
