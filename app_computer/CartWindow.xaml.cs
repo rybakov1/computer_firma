@@ -7,11 +7,11 @@ using Xceed.Wpf.Toolkit;
 
 namespace app_computer
 {
-    public partial class OrderDetails : Window
+    public partial class CartWindow : Window
     {
         mydbContext db;
         ObservableCollection<ComponentMem> ComponentList;
-        public OrderDetails()
+        public CartWindow()
         {
             InitializeComponent();
             db = new mydbContext();
@@ -21,27 +21,36 @@ namespace app_computer
         void MakeCart()
         {
             ComponentList = new ObservableCollection<ComponentMem>();
-            foreach (var item in Config.Id)
-            {
-                var component = from u in db.Components
-                                where u.IdComp == item.Key
-                                select new { u.IdComp, u.Model, u.Description, u.Price, u.Specifications };
 
-                foreach (var field in component)
-                {
-                    ComponentList.Add(new ComponentMem
-                    {
-                        Id = field.IdComp,
-                        Model = field.Model,
-                        Price = (decimal)field.Price,
-                        Description = field.Description,
-                        Specifications = field.Specifications,
-                        Count = item.Value,
-                    });
-                }
+            if (Config.Id.Count == 0)
+            {
+                go_to_order.Visibility = Visibility.Hidden;
+                total_price.Text = "Cart empty";
             }
-            CalculateSum();
-            componentList.ItemsSource = ComponentList;
+            else
+            {
+                foreach (var item in Config.Id)
+                {
+                    var component = from u in db.Components
+                                    where u.IdComp == item.Key
+                                    select new { u.IdComp, u.Model, u.Description, u.Price, u.Specifications };
+
+                    foreach (var field in component)
+                    {
+                        ComponentList.Add(new ComponentMem
+                        {
+                            Id = field.IdComp,
+                            Model = field.Model,
+                            Price = (decimal)field.Price,
+                            Description = field.Description,
+                            Specifications = field.Specifications,
+                            Count = item.Value,
+                        });
+                    }
+                }
+                CalculateSum();
+                componentList.ItemsSource = ComponentList;
+            }
         }
 
         private void CalculateSum()
@@ -73,10 +82,20 @@ namespace app_computer
         private void myUpDownControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var mem = sender as IntegerUpDown;
-#pragma warning disable CS8629 // Тип значения, допускающего NULL, может быть NULL.
             Config.Id[(int)mem.Tag] = (int)mem.Value;
             CalculateSum();
-#pragma warning restore CS8629 // Тип значения, допускающего NULL, может быть NULL.
+
+            if (Config.Id[(int)mem.Tag] == 0) {
+                Config.Id.Remove((int)mem.Tag);
+            }
+        }
+
+        private void go_to_order_Click(object sender, RoutedEventArgs e)
+        {
+            OrderWindow order = new();
+            Application.Current.MainWindow = order;
+            this.Close();
+            order.Show();
         }
     }
 }

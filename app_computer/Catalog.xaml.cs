@@ -68,7 +68,6 @@ namespace app_computer
                 }
             }
         }
-
         private void CategoriesButtonsCreate()
         {
             var components = from u in db.Typeofcomponents
@@ -143,12 +142,11 @@ namespace app_computer
             {
                 Config.Id.Add((int)senderBtn.Tag, 1);
             }
-
         }
 
         private void cart_button_Click(object sender, RoutedEventArgs e)
         {
-            OrderDetails orderDetails = new OrderDetails();
+            CartWindow orderDetails = new();
             Application.Current.MainWindow = orderDetails;
 
             this.Close();

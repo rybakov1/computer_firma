@@ -1,0 +1,71 @@
+﻿<Window x:Class="app_computer.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:app_computer"
+        mc:Ignorable="d"
+        Title="OrderWindow" Height="720" Width="1080">
+    <Window.Resources>
+        <DataTemplate x:Key="listTemplate">
+            <StackPanel Margin="5" Width="200" Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left">
+                    <Run FontSize="14" Text="{Binding Path=Model, StringFormat='{}{0} '}"/>
+                    <Run FontSize="14" Text="{Binding Path=TotalPrice, StringFormat='{}{0} руб. '}"/>
+                    <Run FontSize="14" Text="{Binding Path=Count, StringFormat='{}{0} шт. '}"/>
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="back_text" FontSize="20" Text="Вернуться к корзине" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" MouseLeftButtonDown="back_text_MouseLeftButtonDown"/>
+        <TextBlock x:Name="auth" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="label" Text="Оформление заказа"  FontSize="25"  Grid.Column="1" Grid.Row="1" Width="240" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Width="250">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <TextBlock x:Name="label_order" Height="40" Width="250" FontSize="20"/>
+        </StackPanel>
+        
+        <StackPanel Height="100" x:Name="mem5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
+            <Label FontSize="20" Content="1. Авторизуйтесь для продолжения покупки"/>
+            <Button x:Name="wpf" Content="Авторизоваться"/>
+        </StackPanel>
+        
+        <StackPanel Height="150" x:Name="mem3" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
+            <Label FontSize="20" Content="2. Спопсоб оплаты"/>
+            <RadioButton FontSize="15" Content="Самовывоз"/>
+            <RadioButton FontSize="15" Content="Доставка"/>
+        </StackPanel>
+
+        <StackPanel Height="150" x:Name="mem" Grid.Row="3" Grid.Column="1">
+            <Label FontSize="20" Content="3. Спопсоб оплаты"/>
+            <RadioButton FontSize="15" Content="Наличные или карта при получении"/>
+            <RadioButton FontSize="15" Content="Банковская карта онлайн"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" x:Name="mem4" Grid.Row="4" Grid.Column="1">
+            <Label x:Name="total_sum_label" FontSize="20" Content="Итого к оплате: "/>
+            <Button Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
