@@ -85,7 +85,8 @@ namespace app_computer
             Config.Id[(int)mem.Tag] = (int)mem.Value;
             CalculateSum();
 
-            if (Config.Id[(int)mem.Tag] == 0) {
+            if (Config.Id[(int)mem.Tag] == 0)
+            {
                 Config.Id.Remove((int)mem.Tag);
             }
         }

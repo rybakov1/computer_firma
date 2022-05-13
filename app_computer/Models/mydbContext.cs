@@ -123,6 +123,10 @@ namespace app_computer.Models
                     .HasMaxLength(12)
                     .HasColumnName("mobile_number")
                     .IsFixedLength();
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(45)
+                    .HasColumnName("password");
             });
 
             modelBuilder.Entity<Employee>(entity =>

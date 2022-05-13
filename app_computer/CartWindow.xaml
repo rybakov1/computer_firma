@@ -35,14 +35,7 @@
         <TextBlock FontSize="20" x:Name="back_button" Text="Вернуться к покупкам" Height="40" HorizontalAlignment="Right" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
         <TextBlock x:Name="cart_label" Text="Корзина" FontSize="25" HorizontalAlignment="Right" Grid.Row="1"/>
 
-        <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Grid.Column="1" Margin="10,10,10,0" Grid.Row="1" Grid.RowSpan="2" MaxHeight="1000" VerticalAlignment="Top">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Focusable" Value="False"/>
-                    <Setter Property="IsHitTestVisible" Value="False"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+        <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Grid.Column="1" Margin="10,10,10,0" Grid.Row="1" Grid.RowSpan="2" MaxHeight="1000" VerticalAlignment="Top"/>
 
         <TextBlock x:Name="total_price" FontSize="25" Margin="10,16,10,125" TextWrapping="Wrap" Grid.Column="2" Grid.Row="1"/>
         <Button x:Name="go_to_order" Grid.Column="2" Grid.Row="1" Width="150" Height="40" Content="Перейти к оформлению" Click="go_to_order_Click" />

@@ -9,6 +9,7 @@ namespace app_computer.Logic
     public static class Config
     {
         public static Dictionary<int, int> Id = new();
-        public static bool IsAuthorized;
+        public static bool IsAuthorized = false;
+        public static int IdCustomer;
     }
 }

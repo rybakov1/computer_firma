@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using app_computer.Logic;
 using app_computer.Models;
 
 namespace app_computer
 {
-    /// <summary>
-    /// Логика взаимодействия для OrderWindow.xaml
-    /// </summary>
     public partial class OrderWindow : Window
     {
         mydbContext db;
@@ -29,6 +16,17 @@ namespace app_computer
             InitializeComponent();
             db = new mydbContext();
 
+            if (Config.IsAuthorized == true)
+            {
+                button_go_login.Visibility = Visibility.Hidden;
+
+                var mem1 = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
+
+                foreach (var a in mem1)
+                {
+                    login_label.Content = a.Firstname + ", ваш заказ:";
+                }
+            }
             MakeCart();
         }
         void MakeCart()
@@ -52,7 +50,7 @@ namespace app_computer
                         Specifications = field.Specifications,
                         Count = item.Value,
                         TotalPrice = (field.Price * item.Value).ToString()
-                    }) ;
+                    });
                 }
                 CalculateSum();
                 componentList.ItemsSource = ComponentList;
@@ -88,7 +86,20 @@ namespace app_computer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            LoginWindow login = new();
+            Application.Current.MainWindow = login;
 
+            this.Close();
+            login.Show();
+        }
+
+        private void go_login_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow login = new();
+            Application.Current.MainWindow = login;
+
+            this.Close();
+            login.Show();
         }
     }
 }
