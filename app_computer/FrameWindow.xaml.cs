@@ -19,6 +19,8 @@ namespace app_computer
         public FrameWindow()
         {
             InitializeComponent();
+
+            _mainFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
             _mainFrame.Navigate(new Catalog());
         }
     }

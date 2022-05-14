@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
-        Title="FrameWindow" Height="450" Width="800">
+        Title="FrameWindow" Height="720" Width="12800">
 
-    <Frame x:Name="_mainFrame" />
+    <Frame x:Name="_mainFrame"/>
 </Window>
