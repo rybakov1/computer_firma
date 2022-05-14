@@ -1,13 +1,14 @@
 ﻿using System.Linq;
-using System.Windows;
 using app_computer.Models;
+using System.Windows;
 using app_computer.Logic;
 using System.Collections.ObjectModel;
 using Xceed.Wpf.Toolkit;
+using System.Windows.Controls;
 
 namespace app_computer
 {
-    public partial class CartWindow : Window
+    public partial class CartWindow : Page
     {
         mydbContext db;
         ObservableCollection<ComponentMem> ComponentList;
@@ -73,10 +74,7 @@ namespace app_computer
         }
         private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Catalog catalog = new();
-            Application.Current.MainWindow = catalog;
-            this.Close();
-            catalog.Show();
+            NavigationService.Navigate(new Catalog());
         }
 
         private void myUpDownControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -93,10 +91,7 @@ namespace app_computer
 
         private void go_to_order_Click(object sender, RoutedEventArgs e)
         {
-            OrderWindow order = new();
-            Application.Current.MainWindow = order;
-            this.Close();
-            order.Show();
+            NavigationService.Navigate(new OrderWindow());
         }
     }
 }

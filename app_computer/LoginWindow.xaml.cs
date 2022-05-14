@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using app_computer.Logic;
 using app_computer.Models;
 
 namespace app_computer
 {
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : Page
     {
         mydbContext db;
 
@@ -20,22 +21,21 @@ namespace app_computer
             string mob = mobile_phone_tb.Text;
             string pas = password_tb.Text;
 
-            var cus = from u in db.Customers
-                      select new { u.MobileNumber, u.Password, u.IdCustomer };
+            var cc = db.Customers
+                .Select(u => new { u.MobileNumber, u.Password, u.IdCustomer })?
+                .Where(c => c.MobileNumber == mob)?
+                .First();
 
-            foreach (var c in cus)
+            if (cc is not null)
             {
-                if (mob == c.MobileNumber)
+                if (mob == cc.MobileNumber)
                 {
-                    if (pas == c.Password)
+                    if (pas == cc.Password)
                     {
                         Config.IsAuthorized = true;
-                        Config.IdCustomer = c.IdCustomer;
+                        Config.IdCustomer = cc.IdCustomer;
 
-                        OrderWindow orderWindow = new OrderWindow();
-                        Application.Current.MainWindow = orderWindow;
-                        this.Close();
-                        orderWindow.Show();
+                        NavigationService.Navigate(new OrderWindow());
                     }
                 }
             }

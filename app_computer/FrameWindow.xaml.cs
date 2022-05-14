@@ -14,14 +14,12 @@ using System.Windows.Shapes;
 
 namespace app_computer
 {
-    /// <summary>
-    /// Логика взаимодействия для OrderDetailsWindow.xaml
-    /// </summary>
-    public partial class OrderDetailsWindow : Page
+    public partial class FrameWindow : Window
     {
-        public OrderDetailsWindow()
+        public FrameWindow()
         {
             InitializeComponent();
+            _mainFrame.Navigate(new Catalog());
         }
     }
 }

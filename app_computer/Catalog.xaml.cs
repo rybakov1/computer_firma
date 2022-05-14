@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using app_computer.Models;
 using app_computer.Logic;
 using System.Collections.ObjectModel;
+using System.Windows.Navigation;
 
 namespace app_computer
 {
-    public partial class Catalog : Window
+    public partial class Catalog : Page
     {
         mydbContext db;
         ObservableCollection<ComponentMem> ComponentList;
@@ -146,11 +147,7 @@ namespace app_computer
 
         private void cart_button_Click(object sender, RoutedEventArgs e)
         {
-            CartWindow orderDetails = new();
-            Application.Current.MainWindow = orderDetails;
-
-            this.Close();
-            orderDetails.Show();
+            NavigationService.Navigate(new CartWindow());
         }
     }
 }

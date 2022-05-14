@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using app_computer.Logic;
 using app_computer.Models;
 
 namespace app_computer
 {
-    public partial class OrderWindow : Window
+    public partial class OrderWindow : Page
     {
         mydbContext db;
         ObservableCollection<ComponentMem> ComponentList;
@@ -78,28 +79,17 @@ namespace app_computer
 
         private void back_text_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            CartWindow order = new();
-            Application.Current.MainWindow = order;
-            this.Close();
-            order.Show();
+            NavigationService.Navigate(new CartWindow());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new();
-            Application.Current.MainWindow = login;
-
-            this.Close();
-            login.Show();
+            NavigationService.Navigate(new LoginWindow());
         }
 
         private void go_login_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new();
-            Application.Current.MainWindow = login;
-
-            this.Close();
-            login.Show();
+            NavigationService.Navigate(new LoginWindow());
         }
     }
 }
