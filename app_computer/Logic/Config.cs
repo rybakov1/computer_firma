@@ -10,6 +10,6 @@ namespace app_computer.Logic
     {
         public static Dictionary<int, int> Id = new();
         public static bool IsAuthorized = false;
-        public static int IdCustomer;
+        public static int? IdCustomer;
     }
 }

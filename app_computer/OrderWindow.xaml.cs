@@ -21,12 +21,17 @@ namespace app_computer
             {
                 button_go_login.Visibility = Visibility.Hidden;
 
+                oplata_button.IsEnabled = true;
                 var mem1 = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
 
                 foreach (var a in mem1)
                 {
                     login_label.Content = a.Firstname + ", ваш заказ:";
                 }
+            }
+            else
+            {
+                oplata_button.IsEnabled = false;
             }
             MakeCart();
         }
@@ -56,8 +61,11 @@ namespace app_computer
                 CalculateSum();
                 componentList.ItemsSource = ComponentList;
             }
+
+            total_sum_label.Content = "Итого к оплате: " + CalculateSum().ToString();
+            label_order.Text = "Итого к оплате: " + CalculateSum().ToString();
         }
-        private void CalculateSum()
+        private decimal CalculateSum()
         {
             decimal item_sum = 0;
             decimal total_sum = 0;
@@ -73,8 +81,7 @@ namespace app_computer
                 }
                 total_sum += item_sum;
             }
-            total_sum_label.Content = "Итого к оплате: " + total_sum.ToString();
-            label_order.Text = "Итого к оплате: " + total_sum.ToString();
+            return total_sum;
         }
 
         private void back_text_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -84,7 +91,13 @@ namespace app_computer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new LoginWindow());
+            if (Config.IdCustomer != null)
+            {
+                Order current_order = new() { OrderDate = System.DateTime.Now, IdCustomer = Config.IdCustomer, TotalPrice = (int)CalculateSum() };
+                db.Orders.Add(current_order);
+                db.SaveChanges();
+                NavigationService.Navigate(new OrderDetailsWindow(current_order.IdOrder));
+            }
         }
 
         private void go_login_Click(object sender, RoutedEventArgs e)

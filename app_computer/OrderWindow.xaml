@@ -65,7 +65,7 @@
 
         <StackPanel HorizontalAlignment="Left" x:Name="mem4" Grid.Row="4" Grid.Column="1">
             <Label x:Name="total_sum_label" FontSize="20" Content="Итого к оплате: "/>
-            <Button Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>
+            <Button x:Name="oplata_button" Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Page>
