@@ -22,11 +22,11 @@ namespace app_computer
                 button_go_login.Visibility = Visibility.Hidden;
 
                 oplata_button.IsEnabled = true;
-                var mem1 = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
+                var authorized_customer = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
 
-                foreach (var a in mem1)
+                foreach (var field in authorized_customer)
                 {
-                    login_label.Content = a.Firstname + ", ваш заказ:";
+                    login_label.Content = field.Firstname + ", выберите детали заказа ниже!";
                 }
             }
             else
@@ -61,9 +61,8 @@ namespace app_computer
                 CalculateSum();
                 componentList.ItemsSource = ComponentList;
             }
-
-            total_sum_label.Content = "Итого к оплате: " + CalculateSum().ToString();
-            label_order.Text = "Итого к оплате: " + CalculateSum().ToString();
+            total_sum_label.Content = "Итого к оплате: " + CalculateSum().ToString() + " руб.";
+            label_order.Text = "Итого к оплате: " + CalculateSum().ToString() + " руб.";
         }
         private decimal CalculateSum()
         {
@@ -83,12 +82,10 @@ namespace app_computer
             }
             return total_sum;
         }
-
         private void back_text_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new CartWindow());
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Config.IdCustomer != null)
@@ -96,10 +93,16 @@ namespace app_computer
                 Order current_order = new() { OrderDate = System.DateTime.Now, IdCustomer = Config.IdCustomer, TotalPrice = (int)CalculateSum() };
                 db.Orders.Add(current_order);
                 db.SaveChanges();
+                foreach (var item in Config.Id)
+                {
+                    OrderComponent orderComponent = new() { IdOrder = current_order.IdOrder, IdComp = item.Key, CompCount = item.Value };
+
+                    db.OrderComponents.Add(orderComponent);
+                    db.SaveChanges();
+                }
                 NavigationService.Navigate(new OrderDetailsWindow(current_order.IdOrder));
             }
         }
-
         private void go_login_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new LoginWindow());

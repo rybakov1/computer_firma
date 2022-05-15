@@ -17,9 +17,6 @@ using System.Collections.ObjectModel;
 
 namespace app_computer
 {
-    /// <summary>
-    /// Логика взаимодействия для OrderDetailsWindow.xaml
-    /// </summary>
     public partial class OrderDetailsWindow : Page
     {
         mydbContext db;
@@ -31,7 +28,6 @@ namespace app_computer
             db = new mydbContext();
             order_num.Content = "Ваш номер заказа " + id;
 
-
             var a = db.Orders.Where(c => c.IdOrder == id).Select(c => new
             {
                 TotalPrice = c.TotalPrice
@@ -40,7 +36,6 @@ namespace app_computer
             order_sum.Content = "Сумма заказа: " + a.TotalPrice.ToString();
             GetListItems();
         }
-
         void GetListItems()
         {
             ComponentList = new ObservableCollection<ComponentMem>();

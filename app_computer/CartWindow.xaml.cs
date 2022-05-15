@@ -53,7 +53,6 @@ namespace app_computer
                 componentList.ItemsSource = ComponentList;
             }
         }
-
         private void CalculateSum()
         {
             decimal item_sum = 0;
@@ -70,13 +69,12 @@ namespace app_computer
                 }
                 total_sum += item_sum;
             }
-            total_price.Text = total_sum.ToString();
+            total_price.Text = "Сумма заказа: " + total_sum.ToString() + " руб.";
         }
         private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new Catalog());
         }
-
         private void myUpDownControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var mem = sender as IntegerUpDown;
@@ -88,7 +86,6 @@ namespace app_computer
                 Config.Id.Remove((int)mem.Tag);
             }
         }
-
         private void go_to_order_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new OrderWindow());

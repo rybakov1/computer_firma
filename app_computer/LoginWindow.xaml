@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" >
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -34,12 +33,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Вход в аккаунт" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  FontSize="18" Height="30" FontFamily="Bahnschrift Light"/>
-            
             <Label Content="Ваш телефон" Grid.Row="1" Grid.Column="1" HorizontalAlignment="left" Height="30" FontFamily="Bahnschrift Light"/>
             <TextBox x:Name="mobile_phone_tb" Grid.Row="2" Grid.Column="1" Height="20"/>
             <Label Content="Ваш пароль" Grid.Row="3" Grid.Column="1" HorizontalAlignment="left" Height="30" FontFamily="Bahnschrift Light"/>
             <TextBox x:Name="password_tb" Grid.Row="4" Grid.Column="1" Height="20"/>
-            
             <Button Grid.Row="6" Grid.Column="1" Content="Войти" FontFamily="Bahnschrift Light" BorderBrush="#FF050505" Background="#FF1D2B31" Foreground="White" Click="LoginButtonClick"/>
         </Grid>
         <Label Content="Компьютерная фирма" FontSize="20" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Height="40" FontFamily="Bahnschrift"/>

@@ -9,13 +9,11 @@ namespace app_computer
     public partial class LoginWindow : Page
     {
         mydbContext db;
-
         public LoginWindow()
         {
             db = new mydbContext();
             InitializeComponent();
         }
-
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             string mob = mobile_phone_tb.Text;

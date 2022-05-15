@@ -19,23 +19,23 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="back_text" FontSize="20" Text="Вернуться к корзине" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" MouseLeftButtonDown="back_text_MouseLeftButtonDown"/>
         <TextBlock x:Name="auth" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
         <TextBlock x:Name="label" Text="Оформление заказа"  FontSize="25"  Grid.Column="1" Grid.Row="1" Width="240" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
         <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Width="250">
+            <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Width="250" Height="250">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Focusable" Value="False"/>
@@ -43,29 +43,29 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-            <TextBlock x:Name="label_order" Height="40" Width="250" FontSize="20"/>
+            <TextBlock x:Name="label_order" Margin="0 10 0 0" Height="40" Width="250" FontSize="20"/>
         </StackPanel>
 
         <StackPanel x:Name="go_login" Height="100" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
             <Label x:Name="login_label" FontSize="20" Content="1. Авторизуйтесь для продолжения покупки"/>
             <Button x:Name="button_go_login" Content="Авторизоваться" Click="go_login_Click"/>
         </StackPanel>
-        
-        <StackPanel Height="150" x:Name="mem3" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
+
+        <StackPanel x:Name="mem3" Height="150" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
             <Label FontSize="20" Content="2. Спопсоб оплаты"/>
             <RadioButton FontSize="15" Content="Самовывоз"/>
             <RadioButton FontSize="15" Content="Доставка"/>
         </StackPanel>
 
-        <StackPanel Height="150" x:Name="mem" Grid.Row="3" Grid.Column="1">
+        <StackPanel x:Name="mem" Height="150" Grid.Row="3" Grid.Column="1">
             <Label FontSize="20" Content="3. Спопсоб оплаты"/>
             <RadioButton FontSize="15" Content="Наличные или карта при получении"/>
             <RadioButton FontSize="15" Content="Банковская карта онлайн"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Left" x:Name="mem4" Grid.Row="4" Grid.Column="1">
-            <Label x:Name="total_sum_label" FontSize="20" Content="Итого к оплате: "/>
-            <Button x:Name="oplata_button" Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>
+        <StackPanel x:Name="mem4" Grid.Row="4" Grid.Column="1">
+            <Label x:Name="total_sum_label" HorizontalAlignment="Left" FontSize="20" Content="Итого к оплате: "/>
+            <Button x:Name="oplata_button" HorizontalAlignment="Left" Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Page>

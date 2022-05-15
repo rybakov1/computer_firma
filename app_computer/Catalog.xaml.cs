@@ -23,13 +23,11 @@ namespace app_computer
             db = new mydbContext();
             CategoriesButtonsCreate();
         }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             string category = textBox.Text;
             GetComponentByCategory(category);
         }
-
         private void GetComponentByCategory(string category)
         {
             var components = from u in db.Components
@@ -44,7 +42,6 @@ namespace app_computer
             }
             componentList.ItemsSource = ComponentList;
         }
-
         private void GetPresetComponents(string category)
         {
             var presets = db.Presets.Include(c => c.Comps).Where(c => c.Name == category)
@@ -95,7 +92,6 @@ namespace app_computer
             ButtonGeneration(list_presets, stack_pc, handler: button_click2);
             ButtonGeneration(list_comps, stack_comp, handler: button_click1);
         }
-
         private void ButtonGeneration(List<string> categories, StackPanel stackPanel, RoutedEventHandler handler)
         {
             int i = 0;
@@ -144,7 +140,6 @@ namespace app_computer
                 Config.Id.Add((int)senderBtn.Tag, 1);
             }
         }
-
         private void cart_button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new CartWindow());
