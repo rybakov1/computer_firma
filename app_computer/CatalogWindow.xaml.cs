@@ -144,5 +144,18 @@ namespace app_computer
         {
             NavigationService.Navigate(new CartWindow());
         }
+
+        private void account_button_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+            if (Config.IsAuthorized)
+            {
+                NavigationService.Navigate(new AccountWindow());
+            }
+            else
+            {
+                NavigationService.Navigate(new LoginWindow());
+            }
+        }
     }
 }

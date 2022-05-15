@@ -38,5 +38,18 @@ namespace app_computer
                 }
             }
         }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            string mob = mobile_phone_tb.Text;
+            string pas = password_tb.Text;
+
+            Customer new_customer = new Customer { MobileNumber = mob, Password = pas };
+            db.Customers.Add(new_customer);
+            db.SaveChanges();
+
+            Config.IdCustomer = new_customer.IdCustomer;
+            NavigationService.Navigate(new OrderWindow());
+        }
     }
 }
