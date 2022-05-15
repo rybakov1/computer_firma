@@ -12,12 +12,12 @@ using System.Windows.Navigation;
 
 namespace app_computer
 {
-    public partial class Catalog : Page
+    public partial class CatalogWindow : Page
     {
         mydbContext db;
         ObservableCollection<ComponentMem> ComponentList;
 
-        public Catalog()
+        public CatalogWindow()
         {
             InitializeComponent();
             db = new mydbContext();

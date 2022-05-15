@@ -8,7 +8,7 @@ namespace app_computer
         public FrameWindow()
         {
             InitializeComponent();
-            _mainFrame.Navigate(new Catalog());
+            _mainFrame.Navigate(new CatalogWindow());
         }
     }
 }

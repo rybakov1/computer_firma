@@ -73,7 +73,7 @@ namespace app_computer
         }
         private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new Catalog());
+            NavigationService.Navigate(new CatalogWindow());
         }
         private void myUpDownControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {

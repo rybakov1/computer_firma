@@ -64,7 +64,7 @@ namespace app_computer
         }
         private void go_back_button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new Catalog());
+            NavigationService.Navigate(new CatalogWindow());
         }
     }
 }
