@@ -18,25 +18,50 @@ namespace app_computer
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             string mob = mobile_phone_tb.Text;
-            string pas = password_tb.Text;
+            string pas = password_tb.Password.ToString();
 
             try
             {
-                var cc = db.Customers
-                    .Select(u => new { u.MobileNumber, u.Password, u.IdCustomer })?
-                    .Where(c => c.MobileNumber == mob)?
-                    .First();
-
-                if (cc is not null)
+                if (!(bool)check_admin.IsChecked)
                 {
-                    if (mob == cc.MobileNumber)
-                    {
-                        if (pas == cc.Password)
-                        {
-                            Config.IsAuthorized = true;
-                            Config.IdCustomer = cc.IdCustomer;
+                    var cc = db.Customers
+                        .Select(u => new { u.MobileNumber, u.Password, u.IdCustomer })?
+                        .Where(c => c.MobileNumber == mob)?
+                        .First();
 
-                            NavigationService.Navigate(new OrderWindow());
+                    if (cc is not null)
+                    {
+                        if (mob == cc.MobileNumber)
+                        {
+                            if (pas == cc.Password)
+                            {
+                                Config.IsAuthorized = true;
+                                Config.IdCustomer = cc.IdCustomer;
+
+                                NavigationService.Navigate(new AccountWindow());
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var cc = db.Employees
+                        .Select(u => new { u.MobileNumber, u.Password, u.IdEmployee })?
+                        .Where(c => c.MobileNumber == mob)?
+                        .First();
+
+                    if (cc is not null)
+                    {
+                        if (mob == cc.MobileNumber)
+                        {
+                            if (pas == cc.Password)
+                            {
+                                Config.IsAuthorized = true;
+                                Config.IsAdmin = true;
+                                //Config.IdCustomer = cc.IdEmployee;
+
+                                NavigationService.Navigate(new AccountWindow());
+                            }
                         }
                     }
                 }
@@ -50,7 +75,7 @@ namespace app_computer
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             string mob = mobile_phone_tb.Text;
-            string pas = password_tb.Text;
+            string pas = password_tb.Password.ToString();
 
             try
             {

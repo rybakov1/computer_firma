@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using app_computer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -101,6 +102,9 @@ namespace app_computer.Models
 
                 entity.ToTable("customers");
 
+                entity.HasIndex(e => e.MobileNumber, "mobile_number_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.IdCustomer).HasColumnName("id_customer");
 
                 entity.Property(e => e.Address)
@@ -138,6 +142,9 @@ namespace app_computer.Models
 
                 entity.HasIndex(e => e.IdPos, "Employees_idpos_idx");
 
+                entity.HasIndex(e => e.MobileNumber, "mobile_number_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.IdEmployee).HasColumnName("id_employee");
 
                 entity.Property(e => e.Address)
@@ -169,6 +176,10 @@ namespace app_computer.Models
                     .HasMaxLength(10)
                     .HasColumnName("passport")
                     .IsFixedLength();
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(45)
+                    .HasColumnName("password");
 
                 entity.Property(e => e.Sex)
                     .HasMaxLength(1)

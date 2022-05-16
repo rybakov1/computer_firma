@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using app_computer.Models;
 
 namespace app_computer.Models
 {

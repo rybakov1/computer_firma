@@ -24,39 +24,48 @@ namespace app_computer
             OrderList = new ObservableCollection<OrderMem>();
             CompList = new ObservableCollection<ComponentMem>();
 
-            var my_orders = db.Orders.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
-
-            foreach (var field in my_orders)
+            if (!Config.IsAdmin)
             {
-                var components = from u in db.Components
-                                 join c in db.OrderComponents on u.IdComp equals c.IdComp
-                                 where c.IdOrder == field.IdOrder
-                                 select new { u.IdComp, u.Model, u.Description, u.Price, u.Specifications, c.CompCount };
+                AdminTab.Visibility = Visibility.Hidden;
 
-                foreach (var field2 in components)
+                var my_orders = db.Orders.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
+
+                foreach (var field in my_orders)
                 {
-                    CompList.Add(new ComponentMem
+                    var components = from u in db.Components
+                                     join c in db.OrderComponents on u.IdComp equals c.IdComp
+                                     where c.IdOrder == field.IdOrder
+                                     select new { u.IdComp, u.Model, u.Description, u.Price, u.Specifications, c.CompCount };
+
+                    foreach (var field2 in components)
                     {
-                        Id = field2.IdComp,
-                        Model = field2.Model,
-                        Price = (decimal)field2.Price,
-                        Description = field2.Description,
-                        Specifications = field2.Specifications,
-                        Count = field2.CompCount,
-                        TotalPrice = (field2.Price * field2.CompCount).ToString()
-                    });
-                }
+                        CompList.Add(new ComponentMem
+                        {
+                            Id = field2.IdComp,
+                            Model = field2.Model,
+                            Price = (decimal)field2.Price,
+                            Description = field2.Description,
+                            Specifications = field2.Specifications,
+                            Count = field2.CompCount,
+                            TotalPrice = (field2.Price * field2.CompCount).ToString()
+                        });
+                    }
 
-                OrderList.Add(new OrderMem
-                {
-                    IdOrder = field.IdOrder,
-                    OrderDate = field.OrderDate,
-                    TotalPrice = field.TotalPrice.ToString(),
-                    Comps = new(CompList)
-                });
-                CompList.Clear();
+                    OrderList.Add(new OrderMem
+                    {
+                        IdOrder = field.IdOrder,
+                        OrderDate = field.OrderDate,
+                        TotalPrice = field.TotalPrice.ToString(),
+                        Comps = new(CompList)
+                    });
+                    CompList.Clear();
+                }
+                componentList.ItemsSource = OrderList;
             }
-            componentList.ItemsSource = OrderList;
+            else
+            {
+                OrdersTab.Visibility = Visibility.Hidden;
+            }
         }
 
         private void back_button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

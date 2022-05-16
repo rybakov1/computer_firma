@@ -20,7 +20,7 @@
         <TextBlock Text="Личный кабинет" FontSize="18" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <TextBlock FontSize="15" x:Name="back_button" Text="Вернуться к покупкам" Grid.Column="0" Grid.Row="0" Height="40" HorizontalAlignment="Right" MouseLeftButtonDown="back_button_MouseLeftButtonDown"/>
         <TabControl Grid.Row="1" Grid.Column="1" Background="Wheat">
-            <TabItem x:Name="smartphonesTab">
+            <TabItem x:Name="InfoTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="3">Личная информация</TextBlock>
@@ -58,7 +58,7 @@
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem x:Name="tabletsTab">
+            <TabItem x:Name="OrdersTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="3">Мои заказы</TextBlock>
@@ -96,6 +96,16 @@
                             </TreeView.ItemTemplate>
                         </TreeView>
                     </ScrollViewer>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="AdminTab">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Мои заказы</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid/>
                 </TabItem.Content>
             </TabItem>
         </TabControl>

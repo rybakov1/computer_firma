@@ -25,8 +25,8 @@ namespace app_computer
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            string category = textBox.Text;
-            GetComponentByCategory(category);
+            //string category = textBox.Text;
+            //GetComponentByCategory(category);
         }
         private void GetComponentByCategory(string category)
         {

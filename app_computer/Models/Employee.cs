@@ -18,10 +18,11 @@ namespace app_computer.Models
         public string? Middlename { get; set; }
         public string? Sex { get; set; }
         public string? Address { get; set; }
-        public string? MobileNumber { get; set; }
+        public string MobileNumber { get; set; } = null!;
         public string? Passport { get; set; }
         public int? IdPos { get; set; }
         public DateOnly? BirthdayDate { get; set; }
+        public string? Password { get; set; }
 
         public virtual Position? IdPosNavigation { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
