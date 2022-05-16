@@ -9,6 +9,42 @@
       Title="AdminWindow">
 
     <Grid>
-        
+        <DataGrid Margin="40" AutoGenerateColumns="False" x:Name="tableDataGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding IdComp}" Header="id" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Model}" Header="Модель" Width="110"/>
+                <DataGridTextColumn Binding="{Binding Company}" Header="Производитель" Width="70"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="70"/>
+                <DataGridTextColumn Binding="{Binding ReleaseDate}" Header="Дата производства" Width="70"/>
+                <DataGridTextColumn Binding="{Binding Specifications}" Header="Характеристики" Width="70"/>
+                <DataGridTextColumn Binding="{Binding Warranty}" Header="Гарантия" Width="70"/>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="70"/>
+                
+                <DataGridComboBoxColumn Width="100" x:Name="lol"
+                    SelectedValueBinding="{Binding Model, Mode=Default}"
+                    DisplayMemberPath="{Binding Model}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button VerticalAlignment="Bottom" Width="200" Content="Update" Click="Button_Click"/>
     </Grid>
 </Page>
+
+
+<!--<DataGrid AutoGenerateColumns="True" Name="myGrid" Margin="50" ItemsSource="{Binding Components}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Components.IdComp}" Header="IdComp" />
+                -->
+<!--<DataGridComboBoxColumn Width="100" x:Name="Gender"
+                    SelectedValueBinding="{Binding Gender, Mode=TwoWay}"
+                    DisplayMemberPath="{Binding Gender}" />-->
+<!--
+                
+                <DataGridTextColumn Binding="{Binding Path=Model}" />
+                -->
+<!--<DataGridComboBoxColumn Width="100" x:Name="Lol"
+                    SelectedValueBinding="{Binding Gender, Mode=TwoWay}"
+                    DisplayMemberPath="{Binding Gender}" />-->
+<!--
+            </DataGrid.Columns>            
+        </DataGrid>-->

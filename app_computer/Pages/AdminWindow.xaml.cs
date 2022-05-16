@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using app_computer.Logic;
+using app_computer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace app_computer.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
-    /// </summary>
     public partial class AdminWindow : Page
     {
+        mydbContext db;
+        public ObservableCollection<Component> Components2 { get; private set; }
         public AdminWindow()
         {
+            db = new mydbContext();
             InitializeComponent();
+
+            db.Components.Load();
+            tableDataGrid.ItemsSource = db.Components.Local.ToBindingList();
+            lol.ItemsSource = db.Typeofcomponents.Local.ToBindingList();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            db.SaveChanges();
         }
     }
 }

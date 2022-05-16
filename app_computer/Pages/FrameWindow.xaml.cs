@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-
+using app_computer.Pages;
 
 namespace app_computer
 {
@@ -8,7 +8,7 @@ namespace app_computer
         public FrameWindow()
         {
             InitializeComponent();
-            _mainFrame.Navigate(new CatalogWindow());
+            _mainFrame.Navigate(new AdminWindow());
         }
     }
 }
