@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using app_computer.Logic;
 using app_computer.Models;
 
@@ -23,29 +15,35 @@ namespace app_computer
     {
         mydbContext db;
         ObservableCollection<OrderMem> OrderList;
-        ObservableCollection<OrderCompnentMem> OrderCompList;
+        ObservableCollection<ComponentMem> CompList;
 
         public AccountWindow()
         {
             InitializeComponent();
             db = new mydbContext();
-
             OrderList = new ObservableCollection<OrderMem>();
-            OrderCompList = new ObservableCollection<OrderCompnentMem>();
+            CompList = new ObservableCollection<ComponentMem>();
 
             var my_orders = db.Orders.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
 
-            List<int> a = new List<int>();
-            foreach (var field in my_orders) {
-                a.Add(field.IdOrder);
+            foreach (var field in my_orders)
+            {
+                var components = from u in db.Components
+                                 join c in db.OrderComponents on u.IdComp equals c.IdComp
+                                 where c.IdOrder == field.IdOrder
+                                 select new { u.IdComp, u.Model, u.Description, u.Price, u.Specifications, c.CompCount };
 
-                var my_order_comps = db.OrderComponents.Where(c => c.IdOrder == field.IdOrder).ToList();
-
-                foreach (var field2 in my_order_comps) {
-                    OrderList.Add(new OrderMem
+                foreach (var field2 in components)
+                {
+                    CompList.Add(new ComponentMem
                     {
-                        IdComp = field2.IdComp,
-                        CompCount = field2.CompCount
+                        Id = field2.IdComp,
+                        Model = field2.Model,
+                        Price = (decimal)field2.Price,
+                        Description = field2.Description,
+                        Specifications = field2.Specifications,
+                        Count = field2.CompCount,
+                        TotalPrice = (field2.Price * field2.CompCount).ToString()
                     });
                 }
 
@@ -53,9 +51,10 @@ namespace app_computer
                 {
                     IdOrder = field.IdOrder,
                     OrderDate = field.OrderDate,
-                    TotalPrice = field.TotalPrice.ToString()
+                    TotalPrice = field.TotalPrice.ToString(),
+                    Comps = new(CompList)
                 });
-                //componentList.ItemsSource = OrderCompList;
+                CompList.Clear();
             }
             componentList.ItemsSource = OrderList;
         }

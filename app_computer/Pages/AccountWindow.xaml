@@ -66,27 +66,35 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <ScrollViewer CanContentScroll="True" Height="400" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl Name="componentList" Width="700">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="0 10 0 0" Grid.Column="0" Text="{Binding Path=IdOrder, StringFormat='{}{0} '}"/>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Right" Grid.Column="1" Text="{Binding Path=OrderDate, StringFormat='{}{0} '}"/>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Right" Grid.Column="2" Text="{Binding Path=TotalPrice, StringFormat='{}{0} руб. '}"/>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="3">
-                                            <TextBlock FontSize="15" HorizontalAlignment="Right" Margin="20" Grid.Column="3" Text="{Binding Path=IdComp, StringFormat='{}К{0}  '}"/>
-                                            <TextBlock FontSize="15" HorizontalAlignment="Right" Margin="20" Grid.Column="3" Text="{Binding Path=CompCount, StringFormat='{}{0} шт. '}"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <TreeView Name="componentList">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Comps}">
+                                    <StackPanel Orientation="Horizontal" Height="50" Margin="0 30 0 0">
+                                        <TextBlock FontSize="15" HorizontalAlignment="Left" Text="{Binding Path=IdOrder, StringFormat='{}Заказ №{0} '}" />
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding Path=OrderDate, StringFormat='{}Время покупки {0} '}" />
+                                        <TextBlock Text=" [" Foreground="Blue" />
+                                        <TextBlock Text="{Binding Path=Comps.Count}" Foreground="Blue" />
+                                        <TextBlock Text="]" Foreground="Blue" />
+                                    </StackPanel>
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="-25 -1 0 0" BorderBrush="Gray" BorderThickness="2">
+                                                <Grid Width="750" >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock FontSize="15" HorizontalAlignment="Left"  Grid.Column="0" Text="{Binding Path=Model, StringFormat='{}{0} '}"/>
+                                                    <TextBlock FontSize="15" HorizontalAlignment="Right" Grid.Column="1" Text="{Binding Path=Count, StringFormat='{}{0} шт. '}"/>
+                                                    <TextBlock FontSize="15" HorizontalAlignment="Right" Grid.Column="2" Text="{Binding Path=TotalPrice, StringFormat='{}{0} руб. '}"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
                     </ScrollViewer>
                 </TabItem.Content>
             </TabItem>
