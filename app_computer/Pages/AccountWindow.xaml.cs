@@ -26,7 +26,7 @@ namespace app_computer
 
             if (!Config.IsAdmin)
             {
-                AdminTab.Visibility = Visibility.Hidden;
+                //AdminTab.Visibility = Visibility.Hidden;
 
                 var my_orders = db.Orders.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
 

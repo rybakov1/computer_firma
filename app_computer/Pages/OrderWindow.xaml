@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="720" Width="1280">
+        Title="OrderWindow" Height="720" Width="1280" Background="AliceBlue">
     <Page.Resources>
         <DataTemplate x:Key="listTemplate">
             <StackPanel Margin="5" Width="200" Orientation="Horizontal">
@@ -20,9 +20,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -33,7 +33,6 @@
         <TextBlock x:Name="back_text" FontSize="20" Text="Вернуться к корзине" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" MouseLeftButtonDown="back_text_MouseLeftButtonDown"/>
         <TextBlock x:Name="auth" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
         <TextBlock x:Name="label" Text="Оформление заказа"  FontSize="25"  Grid.Column="1" Grid.Row="1" Width="240" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-
         <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ListBox x:Name="componentList" ItemTemplate="{StaticResource listTemplate}" Width="250" Height="250">
                 <ListBox.ItemContainerStyle>
@@ -45,24 +44,33 @@
             </ListBox>
             <TextBlock x:Name="label_order" Margin="0 10 0 0" Height="40" Width="250" FontSize="20"/>
         </StackPanel>
-
         <StackPanel x:Name="go_login" Height="100" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
             <Label x:Name="login_label" FontSize="20" Content="1. Авторизуйтесь для продолжения покупки"/>
-            <Button x:Name="button_go_login" Content="Авторизоваться" Click="go_login_Click"/>
+            <Button x:Name="button_go_login" Width="150" Height="30" HorizontalAlignment="Left" Content="Авторизоваться" Click="go_login_Click"/>
         </StackPanel>
-
-        <StackPanel x:Name="mem3" Height="150" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
-            <Label FontSize="20" Content="2. Спопсоб оплаты"/>
-            <RadioButton FontSize="15" Content="Самовывоз"/>
-            <RadioButton FontSize="15" Content="Доставка"/>
+        <StackPanel Grid.Row="2" Grid.Column="1"  >
+            <StackPanel x:Name="mem3" Height="100" VerticalAlignment="Top">
+                <Label FontSize="20" Content="2. Спопсоб оплаты"/>
+                <RadioButton x:Name="pickup_Check" FontSize="15" Content="Самовывоз (скидка 5%)" Checked="RadioButton_Checked"/>
+                <RadioButton x:Name="delivery_Check" FontSize="15" Content="Доставка (На ваш адресс)" Checked="RadioButton_Checked"/>
+            </StackPanel>
+            <StackPanel x:Name="address_delivery" Visibility="Collapsed">
+                <StackPanel x:Name="address_panel" Orientation="Vertical" Width="400" Margin="0 0 0 5" HorizontalAlignment="Left" >
+                    <TextBlock HorizontalAlignment="Left" Text="Ваш адрес: "/>
+                    <TextBox x:Name="address_text" HorizontalAlignment="Left" Width="200" Height="20"/>
+                </StackPanel>
+                <StackPanel x:Name="mobile_panel" Orientation="Vertical" Width="400" Margin="0 0 0 30" HorizontalAlignment="Left" >
+                    <TextBlock HorizontalAlignment="Left" Text="Ваш мобильный номер: "/>
+                    <TextBox x:Name="mobile_text" HorizontalAlignment="Left"  Width="200" Height="20"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel x:Name="mem" Height="150" Grid.Row="3" Grid.Column="1">
-            <Label FontSize="20" Content="3. Спопсоб оплаты"/>
-            <RadioButton FontSize="15" Content="Наличные или карта при получении"/>
-            <RadioButton FontSize="15" Content="Банковская карта онлайн"/>
+        <StackPanel VerticalAlignment="Top" x:Name="mem" Height="150" Grid.Row="3" Grid.Column="1">
+            <Label FontSize="20" Content="3. Способ оплаты"/>
+            <RadioButton x:Name="prepayment_Check" FontSize="15" Content="Предоплата онлайн (скидка 5%)!" Checked="RadioButton_Checked"/>
+            <RadioButton x:Name="Nal_Check" FontSize="15" Content="При получении наличными или картой" Checked="RadioButton_Checked"/>
+            <RadioButton x:Name="Bank_Check" FontSize="15" Content="Банковской картой онлайн" Checked="RadioButton_Checked"/>
         </StackPanel>
-
         <StackPanel x:Name="mem4" Grid.Row="4" Grid.Column="1">
             <Label x:Name="total_sum_label" HorizontalAlignment="Left" FontSize="20" Content="Итого к оплате: "/>
             <Button x:Name="oplata_button" HorizontalAlignment="Left" Content="Оплатить" Height="40" Width="150" Click="Button_Click"/>

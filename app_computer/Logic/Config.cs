@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace app_computer.Logic
 {
     public static class Config
     {
         public static Dictionary<int, int> Id = new();
+        public static int? IdCustomer;
+
         public static bool IsAuthorized = false;
         public static bool IsAdmin = false;
-        public static int? IdCustomer;
+
+        public static int? PaymentDiscount = 0;
+        public static int? DeliveryDiscount = 0;
     }
 }

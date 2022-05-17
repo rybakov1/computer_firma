@@ -154,7 +154,7 @@ namespace app_computer
             }
             else
             {
-                NavigationService.Navigate(new LoginWindow());
+                NavigationService.Navigate(new LoginWindow(1));
             }
         }
     }

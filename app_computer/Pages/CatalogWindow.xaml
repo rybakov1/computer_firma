@@ -42,11 +42,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <!--<TextBox FontSize="16" x:Name="textBox" Grid.Column="1" Grid.Row="0" Margin="10" TextWrapping="Wrap"/>-->
-        <!--<Button FontSize="20" x:Name="button" Grid.Column="2" Content="->" Width="50" Height="50" HorizontalAlignment="Left" Click="button_Click"/>-->
         <Button FontSize="15" x:Name="cart_button" Grid.Column="2" Content="Корзина" Click="cart_button_Click" Width="70" Height="50"/>
         <TextBlock Foreground="Black"  FontSize="20" x:Name="account_button" Text="Личный кабинет" Height="40" HorizontalAlignment="Center" MouseLeftButtonDown="account_button_MouseLeftButtonDown"/>
-        
         <TextBlock x:Name="box" TextWrapping="Wrap" Text="TextBlock" Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="0"/>
     </Grid>
 </Page>

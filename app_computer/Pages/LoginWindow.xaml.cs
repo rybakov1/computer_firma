@@ -4,21 +4,31 @@ using System.Windows;
 using System.Windows.Controls;
 using app_computer.Logic;
 using app_computer.Models;
+using app_computer.Pages;
 
 namespace app_computer
 {
     public partial class LoginWindow : Page
     {
         mydbContext db;
-        public LoginWindow()
+        int what_a_page;
+        public LoginWindow(int from_order)
         {
             db = new mydbContext();
             InitializeComponent();
+
+            what_a_page = from_order;
         }
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             string mob = mobile_phone_tb.Text;
             string pas = password_tb.Password.ToString();
+
+            if (String.IsNullOrWhiteSpace(mob) || String.IsNullOrWhiteSpace(pas))
+            {
+                MessageBox.Show("Заполните поля!");
+                return;
+            }
 
             try
             {
@@ -38,7 +48,19 @@ namespace app_computer
                                 Config.IsAuthorized = true;
                                 Config.IdCustomer = cc.IdCustomer;
 
-                                NavigationService.Navigate(new AccountWindow());
+
+                                if (what_a_page == 1)
+                                {
+                                    NavigationService.Navigate(new AccountWindow());
+                                }
+                                else
+                                {
+                                    NavigationService.Navigate(new OrderWindow());
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Неправильно введён пароль!");
                             }
                         }
                     }
@@ -60,15 +82,19 @@ namespace app_computer
                                 Config.IsAdmin = true;
                                 //Config.IdCustomer = cc.IdEmployee;
 
-                                NavigationService.Navigate(new AccountWindow());
+                                NavigationService.Navigate(new AdminWindow());
+                            }
+                            else
+                            {
+                                MessageBox.Show("Неправильно введён пароль!");
                             }
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Такого пользователя нет! Вы можете зарегистрироваться!");
             }
         }
 
@@ -77,6 +103,16 @@ namespace app_computer
             string mob = mobile_phone_tb.Text;
             string pas = password_tb.Password.ToString();
 
+            if (String.IsNullOrWhiteSpace(mob) || String.IsNullOrWhiteSpace(pas))
+            {
+                MessageBox.Show("Заполните поля!");
+                return;
+            }
+            else if (check_admin.IsChecked.HasValue && check_admin.IsChecked.Value) {
+                MessageBox.Show("Админом зарегистрироваться нельзя!");
+                return;
+            }
+
             try
             {
                 Customer new_customer = new Customer { MobileNumber = mob, Password = pas };
@@ -84,12 +120,21 @@ namespace app_computer
                 db.SaveChanges();
 
                 Config.IdCustomer = new_customer.IdCustomer;
-                NavigationService.Navigate(new OrderWindow());
+
+                if (what_a_page == 1)
+                {
+                    NavigationService.Navigate(new AccountWindow());
+                }
+                else
+                {
+                    NavigationService.Navigate(new OrderWindow());
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Такого пользователя нет! Вы можете зарегистрироваться!");
             }
+
         }
     }
 }
