@@ -51,7 +51,7 @@ namespace app_computer
                     {
                         Id = field.IdComp,
                         Model = field.Model,
-                        Price = (decimal)field.Price,
+                        Price = field.Price,
                         Description = field.Description,
                         Specifications = field.Specifications,
                         Count = item.Value,

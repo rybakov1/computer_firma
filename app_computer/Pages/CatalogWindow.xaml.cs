@@ -38,7 +38,7 @@ namespace app_computer
             ComponentList = new ObservableCollection<ComponentMem>();
             foreach (var component in components)
             {
-                ComponentList.Add(new ComponentMem { Id = component.IdComp, Model = component.Model, Price = (decimal)component.Price, Description = component.Description, Specifications = component.Specifications });
+                ComponentList.Add(new ComponentMem { Id = component.IdComp, Model = component.Model, Price = component.Price, Description = component.Description, Specifications = component.Specifications });
             }
             componentList.ItemsSource = ComponentList;
         }

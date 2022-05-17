@@ -21,12 +21,41 @@ namespace app_computer.Pages
             InitializeComponent();
 
             db.Components.Load();
-            tableDataGrid.ItemsSource = db.Components.Local.ToBindingList();
-            lol.ItemsSource = db.Typeofcomponents.Local.ToBindingList();
-        }
 
+            //var componentMems = db.Components.Local.ToBindingList().Select(a => new ComponentMem
+            //{
+            //    Id = a.IdComp,
+            //    Title = a.IdTypeNavigation.Title,
+            //    Model = a.Model,
+            //    Company = a.Company,
+            //    Country = a.Country,
+            //    ReleaseDate = a.ReleaseDate,
+            //    Specifications = a.Specifications,
+            //    Warranty = a.Warranty,
+            //    Description = a.Description,
+            //    Price = a.Price
+            //});
+
+            var componentMems = db.Components.Local.ToBindingList();
+            tableDataGrid.ItemsSource = componentMems;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            db.SaveChanges();
+        }
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (tableDataGrid.SelectedItems.Count > 0)
+            {
+                for (int i = 0; i < tableDataGrid.SelectedItems.Count; i++)
+                {
+                    Component comp = tableDataGrid.SelectedItems[i] as Component;
+                    if (comp != null)
+                    {
+                        db.Components.Remove(comp);
+                    }
+                }
+            }
             db.SaveChanges();
         }
     }

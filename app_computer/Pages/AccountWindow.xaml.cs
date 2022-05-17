@@ -43,7 +43,7 @@ namespace app_computer
                         {
                             Id = field2.IdComp,
                             Model = field2.Model,
-                            Price = (decimal)field2.Price,
+                            Price = field2.Price,
                             Description = field2.Description,
                             Specifications = field2.Specifications,
                             Count = field2.CompCount,

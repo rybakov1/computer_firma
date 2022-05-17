@@ -11,7 +11,8 @@
     <Grid>
         <DataGrid Margin="40" AutoGenerateColumns="False" x:Name="tableDataGrid">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding IdComp}" Header="id" Width="100"/>
+                <DataGridTextColumn Binding="{Binding IdComp}" Header="Позиция" Width="100"/>
+                <DataGridTextColumn Binding="{Binding IdType}" Header="Категория" Width="100"/>
                 <DataGridTextColumn Binding="{Binding Model}" Header="Модель" Width="110"/>
                 <DataGridTextColumn Binding="{Binding Company}" Header="Производитель" Width="70"/>
                 <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="70"/>
@@ -19,14 +20,12 @@
                 <DataGridTextColumn Binding="{Binding Specifications}" Header="Характеристики" Width="70"/>
                 <DataGridTextColumn Binding="{Binding Warranty}" Header="Гарантия" Width="70"/>
                 <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="70"/>
-                
-                <DataGridComboBoxColumn Width="100" x:Name="lol"
-                    SelectedValueBinding="{Binding Model, Mode=Default}"
-                    DisplayMemberPath="{Binding Model}" />
             </DataGrid.Columns>
-
         </DataGrid>
-        <Button VerticalAlignment="Bottom" Width="200" Content="Update" Click="Button_Click"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <Button Width="200" Content="Update table" Click="Button_Click"/>
+            <Button Width="200" Content="Delete selected row" Click="deleteButton_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
 
