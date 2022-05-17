@@ -19,6 +19,7 @@ namespace app_computer
 
             what_a_page = from_order;
         }
+
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             string mob = mobile_phone_tb.Text;
@@ -27,6 +28,11 @@ namespace app_computer
             if (String.IsNullOrWhiteSpace(mob) || String.IsNullOrWhiteSpace(pas))
             {
                 MessageBox.Show("Заполните поля!");
+                return;
+            }
+            else if (!Utils.IsPhoneNumber(mob))
+            {
+                MessageBox.Show("Не телефон!");
                 return;
             }
 
@@ -43,11 +49,10 @@ namespace app_computer
                     {
                         if (mob == cc.MobileNumber)
                         {
-                            if (pas == cc.Password)
+                            if (Utils.hashingPassword(pas) == cc.Password)
                             {
                                 Config.IsAuthorized = true;
                                 Config.IdCustomer = cc.IdCustomer;
-
 
                                 if (what_a_page == 1)
                                 {
@@ -76,11 +81,10 @@ namespace app_computer
                     {
                         if (mob == cc.MobileNumber)
                         {
-                            if (pas == cc.Password)
+                            if (Utils.hashingPassword(pas) == cc.Password)
                             {
                                 Config.IsAuthorized = true;
                                 Config.IsAdmin = true;
-                                //Config.IdCustomer = cc.IdEmployee;
 
                                 NavigationService.Navigate(new AdminWindow());
                             }
@@ -108,18 +112,25 @@ namespace app_computer
                 MessageBox.Show("Заполните поля!");
                 return;
             }
-            else if (check_admin.IsChecked.HasValue && check_admin.IsChecked.Value) {
+            else if (check_admin.IsChecked.HasValue && check_admin.IsChecked.Value)
+            {
                 MessageBox.Show("Админом зарегистрироваться нельзя!");
+                return;
+            }
+            else if (!Utils.IsPhoneNumber(mob))
+            {
+                MessageBox.Show("Не телефон!");
                 return;
             }
 
             try
             {
-                Customer new_customer = new Customer { MobileNumber = mob, Password = pas };
+                Customer new_customer = new Customer { MobileNumber = mob, Password = Utils.hashingPassword(pas) };
                 db.Customers.Add(new_customer);
                 db.SaveChanges();
 
                 Config.IdCustomer = new_customer.IdCustomer;
+                Config.IsAuthorized = true;
 
                 if (what_a_page == 1)
                 {

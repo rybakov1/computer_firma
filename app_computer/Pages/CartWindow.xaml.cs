@@ -16,13 +16,11 @@ namespace app_computer
         {
             InitializeComponent();
             db = new mydbContext();
-
             MakeCart();
         }
         void MakeCart()
         {
             ComponentList = new ObservableCollection<ComponentMem>();
-
             if (Config.Id.Count == 0)
             {
                 go_to_order.Visibility = Visibility.Hidden;

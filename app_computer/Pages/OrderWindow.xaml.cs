@@ -34,12 +34,11 @@ namespace app_computer
                 delivery_Check.IsEnabled = true;
 
                 oplata_button.IsEnabled = true;
-                var authorized_customer = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).ToList();
+                var authorized_customer = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).First();
 
-                foreach (var field in authorized_customer)
-                {
-                    login_label.Content = field.Firstname + ", выберите детали заказа ниже!";
-                }
+                if (!string.IsNullOrEmpty(authorized_customer.Firstname))
+                    login_label.Content = authorized_customer.Firstname + ", выберите детали заказа ниже!";
+                else login_label.Content = "Пожалуйста, выберите детали заказа ниже!";
             }
             else
             {
@@ -86,8 +85,6 @@ namespace app_computer
         {
             total_sum = 0;
             int item_sum = 0;
-
-
 
             if (delivery_Check.IsChecked.HasValue && delivery_Check.IsChecked.Value)
             {
@@ -139,6 +136,16 @@ namespace app_computer
         {
             if (Config.IdCustomer != null)
             {
+                var a = db.Customers.Where(c => c.IdCustomer == Config.IdCustomer).First();
+
+                if (a.Address == null) { 
+                    Customer customer = db.Customers.FirstOrDefault(c => c.IdCustomer == Config.IdCustomer);
+                    customer.Address = address_text.Text;
+
+                    db.Update(customer);
+                    db.SaveChanges();
+                }
+
                 Order current_order = new() { OrderDate = System.DateTime.Now, IdCustomer = Config.IdCustomer, TotalPrice = (int)CalculateSum(), PaymentMark = pre_payment_mark, Prepayment = pre_payment_sum };
                 db.Orders.Add(current_order);
                 db.SaveChanges();

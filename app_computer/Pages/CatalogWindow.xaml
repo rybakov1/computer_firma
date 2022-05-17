@@ -34,7 +34,7 @@
                                 <TextBlock FontSize="14" Text="{Binding Path=Specifications}" HorizontalAlignment="Left"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                     <TextBlock FontSize="16" Text="{Binding Path=Price, StringFormat='{}{0} руб. '}" HorizontalAlignment="Right" Margin="0 0 10 0"/>
-                                    <Button Tag="{Binding Path=Id}"  x:Name="dataTemplateButton" FontSize="16" Content="Купить" HorizontalAlignment="Right" Padding="2" Click="dataTemplateButton_Click"/>
+                                    <Button Tag="{Binding Path=Id}" x:Name="dataTemplateButton" FontSize="16" Content="Купить" HorizontalAlignment="Right" Padding="2" Click="dataTemplateButton_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

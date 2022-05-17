@@ -103,16 +103,6 @@
                     </ScrollViewer>
                 </TabItem.Content>
             </TabItem>
-            <!--<TabItem x:Name="AdminTab">
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="3">Мои заказы</TextBlock>
-                    </StackPanel>
-                </TabItem.Header>
-                <TabItem.Content>
-                    <DataGrid/>
-                </TabItem.Content>
-            </TabItem>-->
         </TabControl>
     </Grid>
 </Page>

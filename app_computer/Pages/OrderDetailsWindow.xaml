@@ -25,7 +25,6 @@
                 <Label x:Name="order_sum" Content="Сумма заказов 500p" FontWeight="Bold" Margin="0 0 15 0"  FontSize="18" DockPanel.Dock="Right"/>
             </DockPanel>
             <Label Content="Товары" Margin="15 15 0 0" FontSize="15" FontWeight="Bold" DockPanel.Dock="Left"/>
-            
             <ScrollViewer CanContentScroll="True" Height="320">
                 <ItemsControl Name="componentList" Width="710">
                     <ItemsControl.ItemTemplate>
@@ -45,7 +44,6 @@
                 </ItemsControl>
             </ScrollViewer>
         </StackPanel>
-
         <TextBlock x:Name="go_back_button" FontSize="20" Text="Продолжить покупки" Height="40" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0" MouseLeftButtonDown="go_back_button_MouseLeftButtonDown"/>
     </Grid>
 </Page>

@@ -38,7 +38,6 @@
             <Label Content="Ваш пароль" Grid.Row="3" Grid.Column="1" HorizontalAlignment="left" Height="30" FontFamily="Bahnschrift Light"/>
             <PasswordBox x:Name="password_tb" Grid.Row="4" Grid.Column="1"/>
             <CheckBox x:Name="check_admin" Margin="0 5 0 0" Content="Войти как админ?" Grid.Row="5" Grid.Column="1"/>
-            
             <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
                 <Button Width="130" Content="Войти" FontFamily="Bahnschrift Light" BorderBrush="#FF050505" Background="#FF1D2B31" Foreground="White" Click="LoginButtonClick"/>
                 <Button Width="130" Margin="5 0 0 0" Content="Быстрая регистрация" x:Name="RegisterButton" FontFamily="Bahnschrift Light" BorderBrush="#FF050505" Background="#FF1D2B31" Foreground="White" Click="RegisterButton_Click"/>

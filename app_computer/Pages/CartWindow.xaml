@@ -7,7 +7,6 @@
         xmlns:local="clr-namespace:app_computer"
         mc:Ignorable="d"
         Title="OrderDetails" Height="720" Width="1280">
-
     <Grid x:Name="grid2">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -20,7 +19,6 @@
         </Grid.ColumnDefinitions>
         <TextBlock FontSize="20" x:Name="back_button" Text="Вернуться к покупкам" Height="40" HorizontalAlignment="Right" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
         <TextBlock x:Name="cart_label" Text="Корзина" FontSize="25" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1"/>
-
         <ScrollViewer CanContentScroll="True" Grid.Column="1" Grid.Row="1" Height="500" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="componentList">
                 <ItemsControl.ItemTemplate>
@@ -40,7 +38,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" >
             <TextBlock x:Name="total_price" FontSize="20" HorizontalAlignment="Center" Height="40" TextWrapping="Wrap"/>
             <Button x:Name="go_to_order" Height="40" Content="Перейти к оформлению" Click="go_to_order_Click" />
