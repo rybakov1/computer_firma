@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:app_computer"
       mc:Ignorable="d" 
-      Title="AccountWindow" Background="AliceBlue" Height="720" Width="1280">
+      Title="AccountWindow" Height="720" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -75,8 +75,9 @@
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Comps}">
                                     <StackPanel Orientation="Horizontal" Height="20" Margin="0 10 0 10" >
-                                        <TextBlock FontSize="15" HorizontalAlignment="Left" TextAlignment="Center" Text="{Binding Path=IdOrder, StringFormat='{}Заказ №{0} '}" />
-                                        <TextBlock FontSize="15" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Path=OrderDate, StringFormat='{}Время покупки {0} '}" />
+                                        <TextBlock FontSize="15" HorizontalAlignment="Left" TextAlignment="Left" Text="{Binding Path=IdOrder, StringFormat='{}Заказ №{0} '}" Width="100" />
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center" TextAlignment="Left" Text="{Binding Path=OrderDate, StringFormat='{}Время покупки {0} '}" Width="300" />
+                                        <TextBlock FontSize="15" HorizontalAlignment="Left" Margin="20 0 0 0" TextAlignment="Left" Text="{Binding Path=TotalPrice, StringFormat='{}Сумма заказа: {0} руб. '}" />
                                         <TextBlock Text=" [" Foreground="Blue" />
                                         <TextBlock Text="{Binding Path=Comps.Count}" Foreground="Blue" />
                                         <TextBlock Text="]" Foreground="Blue" />
